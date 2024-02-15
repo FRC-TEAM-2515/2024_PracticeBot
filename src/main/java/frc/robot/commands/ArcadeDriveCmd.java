@@ -15,13 +15,13 @@ public class ArcadeDriveCmd extends Command {
     private final DriveTrainSubsystem m_driveTrainSubsystem;
     private final Supplier<Double> m_speedFunction, m_turnFunction;
 
-    /**
-     * Creates a new ExampleCommand.
-     *
-     * @param subsystem The subsystem used by this command.
-     */
+    // /**
+    //  * Creates a new ExampleCommand.
+    //  *
+    //  * @param subsystem The subsystem used by this command.
+    //  */
     public ArcadeDriveCmd(DriveTrainSubsystem driveTrainSubsystem, Supplier<Double> speedFunction, 
-                                                                  Supplier<Double> turnFuntion) {
+                                                                   Supplier<Double> turnFuntion) {
         m_speedFunction = speedFunction;
         m_turnFunction = turnFuntion;
         m_driveTrainSubsystem = driveTrainSubsystem;

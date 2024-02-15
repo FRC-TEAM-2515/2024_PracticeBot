@@ -6,18 +6,13 @@ package frc.robot.subsystems;
 
 //import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import javax.swing.text.StyleContext.SmallAttributeSet;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-import edu.wpi.first.wpilibj.CounterBase.EncodingType;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveTrainSubsystem extends SubsystemBase {
 
-    private Encoder m_leftEncoder;
-    private Encoder m_rightEncoder;
     private WPI_TalonSRX m_talonSRX1;
     private WPI_TalonSRX m_talonSRX3;
     private WPI_VictorSPX m_victorSPX2;
@@ -26,14 +21,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
     /** Creates a new ExampleSubsystem. */
     public DriveTrainSubsystem() {
-        m_leftEncoder = new Encoder(0, 1, false, EncodingType.k4X);
-        addChild("Left Encoder",m_leftEncoder);
-        m_leftEncoder.setDistancePerPulse(0.0088);
-
-        m_rightEncoder = new Encoder(0, 1, false, EncodingType.k4X);
-        addChild("Right Encoder",m_rightEncoder);
-        m_rightEncoder.setDistancePerPulse(0.0088);
-
+        
         m_talonSRX1 = new WPI_TalonSRX(1);
         m_talonSRX3 = new WPI_TalonSRX(3);
         m_victorSPX2 = new WPI_VictorSPX(2);
@@ -46,11 +34,24 @@ public class DriveTrainSubsystem extends SubsystemBase {
         m_differentialDrive.setSafetyEnabled(true);
         m_differentialDrive.setExpiration(0.1);
         m_differentialDrive.setMaxOutput(1.0);
+
+        resetEncoders();
     }
 
-    //custom function to return average encoder value
+    //custom function to reset encoder values
+    private void resetEncoders() {
+        m_talonSRX1.setSelectedSensorPosition(0);
+        m_talonSRX3.setSelectedSensorPosition(0);
+    }
+
+    //custom function to return average encoder value in meters
+    //currently does not convert to meters!
     public double getEncoderMeters() {
-        return (m_leftEncoder.get() + m_rightEncoder.get()) / 2;
+        double leftEncoder = m_talonSRX1.getSelectedSensorPosition();
+        //double leftEncoder = m_talonSRX1.getSelectedSensorVelocity();
+        double rightEncoder = m_talonSRX3.getSelectedSensorPosition();
+        //double rightEncoder = m_talonSRX3.getSelectedSensorVelocity();
+        return (leftEncoder + rightEncoder) / 2;
     }
 
     //custom function to actually drive robot
@@ -85,8 +86,8 @@ public class DriveTrainSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
-        SmartDashboard.putNumber("Left Encoder: ", m_leftEncoder.get());
-        SmartDashboard.putNumber("Right Encoder: ", m_rightEncoder.get());
+        SmartDashboard.putNumber("Left Encoder: ", m_talonSRX1.getSelectedSensorPosition());
+        SmartDashboard.putNumber("Right Encoder: ", m_talonSRX3.getSelectedSensorPosition());
         SmartDashboard.putNumber("Average Encoder: ", getEncoderMeters());
     }
 

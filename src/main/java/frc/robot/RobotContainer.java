@@ -4,13 +4,14 @@
 
 package frc.robot;
 
+import frc.robot.Constants.ArcadeDriveConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.ArcadeDriveCmd;
 import frc.robot.commands.DriveForwardCmd;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
+// import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+// import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj.XboxController;
 
 /**
@@ -37,15 +38,15 @@ public class RobotContainer {
                                                       () -> m_XboxController.getRightX()));
     }
 
-    /**
-     * Use this method to define your trigger->command mappings. Triggers can be created via the
-     * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with an arbitrary
-     * predicate, or via the named factories in {@link
-     * edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for {@link
-     * CommandXboxController Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller
-     * PS4} controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
-     * joysticks}.
-     */
+    // /**
+    //  * Use this method to define your trigger->command mappings. Triggers can be created via the
+    //  * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with an arbitrary
+    //  * predicate, or via the named factories in {@link
+    //  * edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for {@link
+    //  * CommandXboxController Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller
+    //  * PS4} controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
+    //  * joysticks}.
+    //  */
     private void configureBindings() {
       // // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
       // new Trigger(m_driveTrainSubsystem::exampleCondition)
@@ -63,6 +64,6 @@ public class RobotContainer {
     //  * @return the command to run in autonomous
     //  */
     public Command getAutonomousCommand() {
-        return new DriveForwardCmd(m_driveTrainSubsystem, 5);
+        return new DriveForwardCmd(m_driveTrainSubsystem, ArcadeDriveConstants.kAutoDriveDistance);
     }
 }
