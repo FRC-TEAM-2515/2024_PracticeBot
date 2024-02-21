@@ -43,6 +43,7 @@ public class ArcadeDriveCmd extends Command {
         m_driveTrainSubsystem.drive(ArcadeDriveConstants.kDriveSpeedMultiplier*realTimeSpeed, realTimeTurn);
 
         SmartDashboard.putBoolean("Driving Forward: ", true);
+        System.out.println("Driving");
     }
 
     // Called once the command ends or is interrupted.
@@ -50,6 +51,7 @@ public class ArcadeDriveCmd extends Command {
     public void end(boolean interrupted) {
         m_driveTrainSubsystem.drive(0, 0);
         SmartDashboard.putBoolean("Driving Forward: ", false);
+        System.out.println("Not Driving");
     }
 
     // Returns true when the command should end.
