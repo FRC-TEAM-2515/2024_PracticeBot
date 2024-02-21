@@ -27,20 +27,25 @@ public class DriveTrainSubsystem extends SubsystemBase {
         m_talonSRX1 = new WPI_TalonSRX(1);
         m_talonSRX3 = new WPI_TalonSRX(3);
         m_victorSPX2 = new WPI_VictorSPX(2);
-        m_victorSPX2.follow(m_talonSRX1);
         m_victorSPX4 = new WPI_VictorSPX(4);
-        m_victorSPX4.follow(m_talonSRX3);
-
-        m_talonSRX1.setInverted(false);
-        m_talonSRX3.setInverted(true);
-
-        m_talonSRX1.setNeutralMode(NeutralMode.Coast);
-        m_talonSRX3.setNeutralMode(NeutralMode.Coast);
 
         m_talonSRX1.configFactoryDefault();
         m_victorSPX2.configFactoryDefault();
         m_talonSRX3.configFactoryDefault();
         m_victorSPX4.configFactoryDefault();
+
+        m_victorSPX2.follow(m_talonSRX1);
+        m_victorSPX4.follow(m_talonSRX3);
+
+        m_talonSRX1.setInverted(false);
+        m_victorSPX2.setInverted(false);
+        m_talonSRX3.setInverted(true);
+        m_victorSPX4.setInverted(true);
+
+        m_talonSRX1.setNeutralMode(NeutralMode.Coast);
+        m_victorSPX2.setNeutralMode(NeutralMode.Coast);
+        m_talonSRX3.setNeutralMode(NeutralMode.Coast);
+        m_victorSPX4.setNeutralMode(NeutralMode.Coast);
 
         /* Set the peak and nominal outputs */
         m_talonSRX1.configNominalOutputForward(0, 30);
@@ -80,7 +85,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
     //custom function to actually drive robot
     public void drive(double speed, double rotation) {
-        m_differentialDrive.arcadeDrive(-speed, rotation);
+        m_differentialDrive.arcadeDrive(speed, -rotation);
     }
 
     // /**

@@ -40,7 +40,7 @@ public class ArcadeDriveCmd extends Command {
         double realTimeSpeed = m_speedFunction.get();
         double realTimeTurn = m_turnFunction.get();
 
-        m_driveTrainSubsystem.drive(ArcadeDriveConstants.kDriveSpeedMultiplier*realTimeSpeed, realTimeTurn);
+        m_driveTrainSubsystem.drive(ArcadeDriveConstants.kDriveSpeedMultiplier*realTimeSpeed, ArcadeDriveConstants.kTurnSpeedMultiplier*realTimeTurn);
 
         SmartDashboard.putBoolean("Driving Forward: ", true);
         System.out.println("Driving " + "realTimeSpeed " + realTimeSpeed + "realTimeTurn " + realTimeTurn);

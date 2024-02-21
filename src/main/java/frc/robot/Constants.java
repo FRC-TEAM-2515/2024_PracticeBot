@@ -17,7 +17,8 @@ public final class Constants {
     public static final int kDriverControllerPort = 0;
   }
   public static class ArcadeDriveConstants {
-    public static final double kDriveSpeedMultiplier = 0.25;
+    public static final double kDriveSpeedMultiplier = 0.5;
+    public static final double kTurnSpeedMultiplier = 0.5;
     public static final double kDriveForwardSpeed = 0.25;
     public static final double kAutoDriveDistance = 5.0;
   }
