@@ -38,6 +38,7 @@ public class RobotContainer {
         // Configure the trigger bindings
         configureBindings();
         m_driveTrainSubsystem.setDefaultCommand(m_arcadeDriveCmd);
+        System.out.println("This is Robot Container Constructor");
     }
 
     // /**
