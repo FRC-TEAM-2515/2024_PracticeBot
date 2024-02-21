@@ -31,14 +31,14 @@ public class DriveForwardCmd extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        m_driveTrainSubsystem.arcadeDrive(ArcadeDriveConstants.kDriveForwardSpeed, 0);
+        m_driveTrainSubsystem.drive(ArcadeDriveConstants.kDriveForwardSpeed, 0);
         SmartDashboard.putBoolean("Auto Driving Forward: ", true);
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        m_driveTrainSubsystem.arcadeDrive(0, 0);
+        m_driveTrainSubsystem.drive(0, 0);
         SmartDashboard.putBoolean("Auto Driving Forward: ", false);
     }
 

@@ -27,7 +27,7 @@ public class ArcadeDriveCmd extends Command {
         m_turnFunction = turnFuntion;
         m_driveTrainSubsystem = driveTrainSubsystem;
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(driveTrainSubsystem);
+        addRequirements(m_driveTrainSubsystem);
     }
 
     // Called when the command is initially scheduled.
@@ -40,7 +40,7 @@ public class ArcadeDriveCmd extends Command {
         double realTimeSpeed = m_speedFunction.get();
         double realTimeTurn = m_turnFunction.get();
 
-        m_driveTrainSubsystem.arcadeDrive(ArcadeDriveConstants.kDriveSpeedMultiplier*realTimeSpeed, realTimeTurn);
+        m_driveTrainSubsystem.drive(ArcadeDriveConstants.kDriveSpeedMultiplier*realTimeSpeed, realTimeTurn);
 
         SmartDashboard.putBoolean("Driving Forward: ", true);
     }
@@ -48,6 +48,7 @@ public class ArcadeDriveCmd extends Command {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
+        m_driveTrainSubsystem.drive(0, 0);
         SmartDashboard.putBoolean("Driving Forward: ", false);
     }
 

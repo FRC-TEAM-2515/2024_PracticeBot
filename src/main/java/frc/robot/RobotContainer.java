@@ -29,13 +29,15 @@ public class RobotContainer {
     //     new CommandXboxController(OperatorConstants.kDriverControllerPort);
     private final XboxController m_XboxController = new XboxController(OperatorConstants.kDriverControllerPort);
 
+    private final ArcadeDriveCmd m_arcadeDriveCmd = new ArcadeDriveCmd(m_driveTrainSubsystem, 
+                                                        () -> m_XboxController.getLeftY(),
+                                                        () -> m_XboxController.getRightX());
+
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
         // Configure the trigger bindings
         configureBindings();
-        m_driveTrainSubsystem.setDefaultCommand(
-            new ArcadeDriveCmd(m_driveTrainSubsystem, () -> m_XboxController.getLeftY(),
-                                                      () -> m_XboxController.getRightX()));
+        m_driveTrainSubsystem.setDefaultCommand(m_arcadeDriveCmd);
     }
 
     // /**

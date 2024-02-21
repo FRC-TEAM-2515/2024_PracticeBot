@@ -56,7 +56,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
     }
 
     //custom function to actually drive robot
-    public void arcadeDrive(double speed, double rotation) {
+    public void drive(double speed, double rotation) {
         m_differentialDrive.arcadeDrive(-speed, rotation);
     }
 
