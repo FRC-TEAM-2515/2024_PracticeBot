@@ -6,6 +6,8 @@ package frc.robot.subsystems;
 
 //import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -28,7 +30,28 @@ public class DriveTrainSubsystem extends SubsystemBase {
         m_victorSPX2.follow(m_talonSRX1);
         m_victorSPX4 = new WPI_VictorSPX(4);
         m_victorSPX4.follow(m_talonSRX3);
+
+        m_talonSRX1.setInverted(false);
         m_talonSRX3.setInverted(true);
+
+        m_talonSRX1.setNeutralMode(NeutralMode.Coast);
+        m_talonSRX3.setNeutralMode(NeutralMode.Coast);
+
+        m_talonSRX1.configFactoryDefault();
+        m_victorSPX2.configFactoryDefault();
+        m_talonSRX3.configFactoryDefault();
+        m_victorSPX4.configFactoryDefault();
+
+        /* Set the peak and nominal outputs */
+        m_talonSRX1.configNominalOutputForward(0, 30);
+        m_talonSRX1.configNominalOutputReverse(0, 30);
+        m_talonSRX1.configPeakOutputForward(1, 30);
+        m_talonSRX1.configPeakOutputReverse(-1, 30);
+
+        m_talonSRX3.configNominalOutputForward(0, 30);
+        m_talonSRX3.configNominalOutputReverse(0, 30);
+        m_talonSRX3.configPeakOutputForward(1, 30);
+        m_talonSRX3.configPeakOutputReverse(-1, 30);
 
         m_differentialDrive = new DifferentialDrive(m_talonSRX1, m_talonSRX3);
         addChild("Differential Drive", m_differentialDrive);
