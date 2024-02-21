@@ -28,6 +28,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
         m_victorSPX2.follow(m_talonSRX1);
         m_victorSPX4 = new WPI_VictorSPX(4);
         m_victorSPX4.follow(m_talonSRX3);
+        m_talonSRX3.setInverted(true);
 
         m_differentialDrive = new DifferentialDrive(m_talonSRX1, m_talonSRX3);
         addChild("Differential Drive", m_differentialDrive);

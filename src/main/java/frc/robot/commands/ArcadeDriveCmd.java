@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import frc.robot.Constants.ArcadeDriveConstants;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import java.util.function.Supplier;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -39,7 +40,7 @@ public class ArcadeDriveCmd extends Command {
         double realTimeSpeed = m_speedFunction.get();
         double realTimeTurn = m_turnFunction.get();
 
-        m_driveTrainSubsystem.arcadeDrive(realTimeSpeed, realTimeTurn);
+        m_driveTrainSubsystem.arcadeDrive(ArcadeDriveConstants.kDriveSpeedMultiplier*realTimeSpeed, realTimeTurn);
 
         SmartDashboard.putBoolean("Driving Forward: ", true);
     }
