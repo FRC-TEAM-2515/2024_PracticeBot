@@ -71,7 +71,10 @@ public class DriveTrainSubsystem extends SubsystemBase {
         m_differentialDrive.setExpiration(0.1);
         m_differentialDrive.setMaxOutput(1.0);
 
+        // Competition Chassis NavX
         m_gyro = new AHRS(Port.kMXP);
+        // Practice Chassis NavX Micro
+        //  m_gyro = new AHRS(Port.kUSB);
 
         resetEncoders();
         updateSmartDashboard();
