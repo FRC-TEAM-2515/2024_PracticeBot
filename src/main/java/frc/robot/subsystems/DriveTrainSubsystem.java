@@ -11,9 +11,12 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.kauailabs.navx.frc.AHRS;
+
+import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-//import com.kauailabs.navx.frc.AHRS;
+import com.kauailabs.navx.frc.AHRS;
 
 public class DriveTrainSubsystem extends SubsystemBase {
 
@@ -23,7 +26,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
     private WPI_VictorSPX m_victorSPX4;
     private DifferentialDrive m_differentialDrive;
 
-    //private AHRS gyro;
+    private AHRS m_gyro;
 
     /** Creates a new ExampleSubsystem. */
     public DriveTrainSubsystem() {
@@ -68,6 +71,8 @@ public class DriveTrainSubsystem extends SubsystemBase {
         m_differentialDrive.setExpiration(0.1);
         m_differentialDrive.setMaxOutput(1.0);
 
+        m_gyro = new AHRS(Port.kMXP);
+
         resetEncoders();
         updateSmartDashboard();
     }
@@ -76,6 +81,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
     private void resetEncoders() {
         m_talonSRX1.setSelectedSensorPosition(0);
         m_talonSRX3.setSelectedSensorPosition(0);
+        m_gyro.reset();
     }
 
     //custom function to return average encoder value in meters
@@ -93,14 +99,14 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
     //custom function to update Smart Dashboard Values
     public void updateSmartDashboard() {
-        // SmartDashboard.putNumber("imu-yaw", gyro.getYaw());
-        // SmartDashboard.putNumber("imu-pitch", gyro.getPitch());
-        // SmartDashboard.putNumber("imu-roll", gyro.getRoll());
-        // SmartDashboard.putNumber("imu-angle", gyro.getAngle());
+        SmartDashboard.putNumber("imu-yaw", m_gyro.getYaw());
+        SmartDashboard.putNumber("imu-pitch", m_gyro.getPitch());
+        SmartDashboard.putNumber("imu-roll", m_gyro.getRoll());
+        SmartDashboard.putNumber("imu-angle", m_gyro.getAngle());
 
-        // SmartDashboard.putBoolean("imu-moving", gyro.isMoving());
-        // SmartDashboard.putBoolean("imu-connected", gyro.isConnected());
-        // SmartDashboard.putBoolean("imu-calibrating", gyro.isCalibrating());
+        SmartDashboard.putBoolean("imu-moving", m_gyro.isMoving());
+        SmartDashboard.putBoolean("imu-connected", m_gyro.isConnected());
+        SmartDashboard.putBoolean("imu-calibrating", m_gyro.isCalibrating());
 
         SmartDashboard.putNumber("Left Velocity", m_talonSRX1.getSelectedSensorVelocity());
         SmartDashboard.putNumber("Right Velocity", m_talonSRX3.getSelectedSensorVelocity());
