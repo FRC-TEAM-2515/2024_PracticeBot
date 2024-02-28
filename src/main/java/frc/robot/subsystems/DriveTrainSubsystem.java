@@ -7,11 +7,16 @@ package frc.robot.subsystems;
 //import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.kauailabs.navx.frc.AHRS;
+
+import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import com.kauailabs.navx.frc.AHRS;
 
 public class DriveTrainSubsystem extends SubsystemBase {
 
@@ -20,6 +25,8 @@ public class DriveTrainSubsystem extends SubsystemBase {
     private WPI_VictorSPX m_victorSPX2;
     private WPI_VictorSPX m_victorSPX4;
     private DifferentialDrive m_differentialDrive;
+
+    private AHRS m_gyro;
 
     /** Creates a new ExampleSubsystem. */
     public DriveTrainSubsystem() {
@@ -64,28 +71,48 @@ public class DriveTrainSubsystem extends SubsystemBase {
         m_differentialDrive.setExpiration(0.1);
         m_differentialDrive.setMaxOutput(1.0);
 
+        m_gyro = new AHRS(Port.kMXP);
+
         resetEncoders();
+        updateSmartDashboard();
     }
 
     //custom function to reset encoder values
     private void resetEncoders() {
         m_talonSRX1.setSelectedSensorPosition(0);
         m_talonSRX3.setSelectedSensorPosition(0);
+        m_gyro.reset();
     }
 
     //custom function to return average encoder value in meters
     //currently does not convert to meters!
     public double getEncoderMeters() {
         double leftEncoder = m_talonSRX1.getSelectedSensorPosition();
-        //double leftEncoder = m_talonSRX1.getSelectedSensorVelocity();
         double rightEncoder = m_talonSRX3.getSelectedSensorPosition();
-        //double rightEncoder = m_talonSRX3.getSelectedSensorVelocity();
         return (leftEncoder + rightEncoder) / 2;
     }
 
     //custom function to actually drive robot
     public void drive(double speed, double rotation) {
         m_differentialDrive.arcadeDrive(speed, -rotation);
+    }
+
+    //custom function to update Smart Dashboard Values
+    public void updateSmartDashboard() {
+        SmartDashboard.putNumber("imu-yaw", m_gyro.getYaw());
+        SmartDashboard.putNumber("imu-pitch", m_gyro.getPitch());
+        SmartDashboard.putNumber("imu-roll", m_gyro.getRoll());
+        SmartDashboard.putNumber("imu-angle", m_gyro.getAngle());
+
+        SmartDashboard.putBoolean("imu-moving", m_gyro.isMoving());
+        SmartDashboard.putBoolean("imu-connected", m_gyro.isConnected());
+        SmartDashboard.putBoolean("imu-calibrating", m_gyro.isCalibrating());
+
+        SmartDashboard.putNumber("Left Velocity", m_talonSRX1.getSelectedSensorVelocity());
+        SmartDashboard.putNumber("Right Velocity", m_talonSRX3.getSelectedSensorVelocity());
+        SmartDashboard.putNumber("Left Position", m_talonSRX1.getSelectedSensorPosition());
+        SmartDashboard.putNumber("Right Position", m_talonSRX3.getSelectedSensorPosition());
+        SmartDashboard.putNumber("Average Encoder Position", getEncoderMeters());
     }
 
     // /**
@@ -115,9 +142,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
-        SmartDashboard.putNumber("Left Encoder: ", m_talonSRX1.getSelectedSensorPosition());
-        SmartDashboard.putNumber("Right Encoder: ", m_talonSRX3.getSelectedSensorPosition());
-        SmartDashboard.putNumber("Average Encoder: ", getEncoderMeters());
+        
     }
 
     
