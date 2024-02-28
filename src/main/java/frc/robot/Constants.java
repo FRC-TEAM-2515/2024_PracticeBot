@@ -16,10 +16,15 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
+  public static class DriveTrainConstants {
+    public static final double kWheelDiameterInches = 6;
+    public static final double kGearRatio = 8.45;
+    public static final int kUnitsPerRev = 2048; 
+  }
   public static class ArcadeDriveConstants {
     public static final double kDriveSpeedMultiplier = 0.5;
     public static final double kTurnSpeedMultiplier = 0.5;
     public static final double kDriveForwardSpeed = 0.25;
-    public static final double kAutoDriveDistance = 5.0;
+    public static final double kAutoDriveDistance = 5.0; //meters
   }
 }

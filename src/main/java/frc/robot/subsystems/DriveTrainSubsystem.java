@@ -6,13 +6,14 @@ package frc.robot.subsystems;
 
 //import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
+import frc.robot.Constants.DriveTrainConstants;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -88,7 +89,11 @@ public class DriveTrainSubsystem extends SubsystemBase {
     public double getEncoderMeters() {
         double leftEncoder = m_talonSRX1.getSelectedSensorPosition();
         double rightEncoder = m_talonSRX3.getSelectedSensorPosition();
-        return (leftEncoder + rightEncoder) / 2;
+        double averageEncoderPosition = (leftEncoder + rightEncoder) / 2;
+        double converted = (Math.PI * Units.inchesToMeters(DriveTrainConstants.kWheelDiameterInches)) //circumference
+                         * (averageEncoderPosition / DriveTrainConstants.kUnitsPerRev)                //revolutions
+                         / DriveTrainConstants.kGearRatio;                                            //gear ratio
+        return converted;
     }
 
     //custom function to actually drive robot
