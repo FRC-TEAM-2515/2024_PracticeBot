@@ -8,6 +8,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveTrainConstants;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
@@ -64,6 +65,13 @@ public class DriveTrainSubsystem extends SubsystemBase {
         m_talonSRX3.configNominalOutputReverse(0, 30);
         m_talonSRX3.configPeakOutputForward(1, 30);
         m_talonSRX3.configPeakOutputReverse(-1, 30);
+
+        //Does this change how fast the motors speed up? 
+        m_talonSRX1.configOpenloopRamp(DriveTrainConstants.kRampRate);
+        m_talonSRX3.configOpenloopRamp(DriveTrainConstants.kRampRate);
+
+        m_talonSRX1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 30);
+        m_talonSRX3.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 30);
 
         m_differentialDrive = new DifferentialDrive(m_talonSRX1, m_talonSRX3);
         addChild("Differential Drive", m_differentialDrive);

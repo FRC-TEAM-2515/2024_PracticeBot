@@ -4,7 +4,7 @@
 
 package frc.robot;
 
-import frc.robot.Constants.ArcadeDriveConstants;
+import frc.robot.Constants.AutonomousConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.ArcadeDriveCmd;
 import frc.robot.commands.DriveForwardCmd;
@@ -71,6 +71,6 @@ public class RobotContainer {
     //  * @return the command to run in autonomous
     //  */
     public Command getAutonomousCommand() {
-        return new DriveForwardCmd(m_driveTrainSubsystem, ArcadeDriveConstants.kAutoDriveDistance);
+        return new DriveForwardCmd(m_driveTrainSubsystem, AutonomousConstants.kAutoDriveDistance);
     }
 }

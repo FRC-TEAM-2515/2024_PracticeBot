@@ -4,7 +4,7 @@
 
 package frc.robot.commands;
 
-import frc.robot.Constants.ArcadeDriveConstants;
+import frc.robot.Constants.AutonomousConstants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.DriveTrainSubsystem;
@@ -31,22 +31,22 @@ public class DriveForwardCmd extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        m_driveTrainSubsystem.drive(ArcadeDriveConstants.kDriveForwardSpeed, 0);
-        SmartDashboard.putBoolean("Auto Driving Forward: ", true);
+        m_driveTrainSubsystem.drive(AutonomousConstants.kAutoDriveSpeed, 0);
+        SmartDashboard.putBoolean("Auto Driving Forward", true);
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
         m_driveTrainSubsystem.drive(0, 0);
-        SmartDashboard.putBoolean("Auto Driving Forward: ", false);
+        SmartDashboard.putBoolean("Auto Driving Forward", false);
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
         if (m_driveTrainSubsystem.getEncoderMeters() > encoderSetpoint) {
-            SmartDashboard.putBoolean("Auto Driving Forward: ", false);
+            SmartDashboard.putBoolean("Auto Driving Forward", false);
             return true;
         } else
             return false;
