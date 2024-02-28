@@ -6,7 +6,7 @@ package frc.robot.subsystems;
 
 //import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
+import frc.robot.Constants.DriveTrainConstants;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -91,8 +91,9 @@ public class DriveTrainSubsystem extends SubsystemBase {
         double leftEncoder = m_talonSRX1.getSelectedSensorPosition();
         double rightEncoder = m_talonSRX3.getSelectedSensorPosition();
         double averageEncoderPosition = (leftEncoder + rightEncoder) / 2;
-        //(Pi * wheel Diameter in meters) * (encoder position / units per revolution) / gear ratio 
-        double converted = (Math.PI * Units.inchesToMeters(6)) * (averageEncoderPosition / 2048) / 8.45;
+        double converted = (Math.PI * Units.inchesToMeters(DriveTrainConstants.kWheelDiameterInches)) //circumference
+                         * (averageEncoderPosition / DriveTrainConstants.kUnitsPerRev)                //revolutions
+                         / DriveTrainConstants.kGearRatio;                                            //gear ratio
         return converted;
     }
 
