@@ -41,6 +41,10 @@ public class RobotContainer {
         System.out.println("This is Robot Container Constructor");
     }
 
+    public DriveTrainSubsystem getDriveTrain() {
+        return m_driveTrainSubsystem;
+    }
+
     // /**
     //  * Use this method to define your trigger->command mappings. Triggers can be created via the
     //  * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with an arbitrary
