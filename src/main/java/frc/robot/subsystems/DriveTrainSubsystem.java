@@ -13,6 +13,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -89,7 +90,10 @@ public class DriveTrainSubsystem extends SubsystemBase {
     public double getEncoderMeters() {
         double leftEncoder = m_talonSRX1.getSelectedSensorPosition();
         double rightEncoder = m_talonSRX3.getSelectedSensorPosition();
-        return (leftEncoder + rightEncoder) / 2;
+        double averageEncoderPosition = (leftEncoder + rightEncoder) / 2;
+        //(Pi * wheel Diameter in meters) * (encoder position / units per revolution) / gear ratio 
+        double converted = (Math.PI * Units.inchesToMeters(6)) * (averageEncoderPosition / 2048) / 8.45;
+        return converted;
     }
 
     //custom function to actually drive robot
