@@ -28,6 +28,6 @@ public final class Constants {
   }
   public static class AutonomousConstants {
     public static final double kAutoDriveDistance = 5.0; //meters
-    public static final double kAutoDriveSpeed = 0.25;
+    public static final double kAutoDriveSpeed = 0.5;
   }
 }

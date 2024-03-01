@@ -98,8 +98,8 @@ public class DriveTrainSubsystem extends SubsystemBase {
     //custom function to return average encoder value in meters
     //currently does not convert to meters!
     public double getEncoderMeters() {
-        double leftEncoder = m_talonSRX1.getSelectedSensorPosition();
-        double rightEncoder = m_talonSRX3.getSelectedSensorPosition();
+        double leftEncoder = Math.abs(m_talonSRX1.getSelectedSensorPosition());
+        double rightEncoder = Math.abs(m_talonSRX3.getSelectedSensorPosition());
         double averageEncoderPosition = (leftEncoder + rightEncoder) / 2;
         double converted = (Math.PI * Units.inchesToMeters(DriveTrainConstants.kWheelDiameterInches)) //circumference
                          * (averageEncoderPosition / DriveTrainConstants.kUnitsPerRev)                //revolutions
@@ -125,8 +125,8 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
         SmartDashboard.putNumber("Left Velocity", m_talonSRX1.getSelectedSensorVelocity());
         SmartDashboard.putNumber("Right Velocity", m_talonSRX3.getSelectedSensorVelocity());
-        SmartDashboard.putNumber("Left Position", m_talonSRX1.getSelectedSensorPosition());
-        SmartDashboard.putNumber("Right Position", m_talonSRX3.getSelectedSensorPosition());
+        SmartDashboard.putNumber("Left Position", Math.abs(m_talonSRX1.getSelectedSensorPosition()));
+        SmartDashboard.putNumber("Right Position",Math.abs(m_talonSRX3.getSelectedSensorPosition()));
         SmartDashboard.putNumber("Average Encoder Position", getEncoderMeters());
     }
 
