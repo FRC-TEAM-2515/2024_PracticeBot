@@ -4,10 +4,14 @@
 
 package frc.robot.commands;
 
-import frc.robot.Constants.AutonomousConstants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+
+//subsystems
 import frc.robot.subsystems.DriveTrainSubsystem;
+
+//constants
+import static frc.robot.Constants.AutonomousConstants;
 
 public class DriveForwardCmd extends Command {
 
@@ -15,7 +19,7 @@ public class DriveForwardCmd extends Command {
     private final double m_distance;
     private double encoderSetpoint;
 
-    /** Creates a new DriveForwardCmd. */
+    //constructor
     public DriveForwardCmd(DriveTrainSubsystem driveTrainSubsystem, double distance) {
         m_driveTrainSubsystem = driveTrainSubsystem;
         m_distance = distance;

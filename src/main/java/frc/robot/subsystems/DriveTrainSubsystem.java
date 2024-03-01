@@ -4,9 +4,7 @@
 
 package frc.robot.subsystems;
 
-//import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.DriveTrainConstants;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -19,6 +17,9 @@ import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+//constants
+import static frc.robot.Constants.DriveTrainConstants;
+
 public class DriveTrainSubsystem extends SubsystemBase {
 
     private WPI_TalonSRX m_talonSRX1;
@@ -29,13 +30,12 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
     private AHRS m_gyro;
 
-    /** Creates a new ExampleSubsystem. */
+    //constructor
     public DriveTrainSubsystem() {
-        
-        m_talonSRX1 = new WPI_TalonSRX(1);
-        m_talonSRX3 = new WPI_TalonSRX(3);
-        m_victorSPX2 = new WPI_VictorSPX(2);
-        m_victorSPX4 = new WPI_VictorSPX(4);
+        m_talonSRX1 = new WPI_TalonSRX(1); //left leader
+        m_talonSRX3 = new WPI_TalonSRX(3); //left follower
+        m_victorSPX2 = new WPI_VictorSPX(2); //right leader
+        m_victorSPX4 = new WPI_VictorSPX(4); //right follower
 
         m_talonSRX1.configFactoryDefault();
         m_victorSPX2.configFactoryDefault();
@@ -45,6 +45,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
         m_victorSPX2.follow(m_talonSRX1);
         m_victorSPX4.follow(m_talonSRX3);
 
+        //invert right side
         m_talonSRX1.setInverted(false);
         m_victorSPX2.setInverted(false);
         m_talonSRX3.setInverted(true);
@@ -55,7 +56,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
         m_talonSRX3.setNeutralMode(NeutralMode.Coast);
         m_victorSPX4.setNeutralMode(NeutralMode.Coast);
 
-        /* Set the peak and nominal outputs */
+        //Set the peak and nominal outputs
         m_talonSRX1.configNominalOutputForward(0, 30);
         m_talonSRX1.configNominalOutputReverse(0, 30);
         m_talonSRX1.configPeakOutputForward(1, 30);
@@ -96,14 +97,13 @@ public class DriveTrainSubsystem extends SubsystemBase {
     }
 
     //custom function to return average encoder value in meters
-    //currently does not convert to meters!
     public double getEncoderMeters() {
         double leftEncoder = Math.abs(m_talonSRX1.getSelectedSensorPosition());
         double rightEncoder = Math.abs(m_talonSRX3.getSelectedSensorPosition());
         double averageEncoderPosition = (leftEncoder + rightEncoder) / 2;
         double converted = (Math.PI * Units.inchesToMeters(DriveTrainConstants.kWheelDiameterInches)) //circumference
-                         * ((averageEncoderPosition / DriveTrainConstants.kUnitsPerRev)                //revolutions
-                         / DriveTrainConstants.kGearRatio);                                            //gear ratio
+                         * (averageEncoderPosition / DriveTrainConstants.kUnitsPerRev)                //revolutions
+                         / DriveTrainConstants.kGearRatio;                                            //gear ratio
         return converted;
     }
 
@@ -131,6 +131,12 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
     }
 
+    @Override
+    public void periodic() {
+        // This method will be called once per scheduler run
+        updateSmartDashboard();
+    }
+
     // /**
     //  * Example command factory method.
     //  *
@@ -154,14 +160,6 @@ public class DriveTrainSubsystem extends SubsystemBase {
     //   // Query some boolean state, such as a digital sensor.
     //   return false;
     // }
-
-    @Override
-    public void periodic() {
-        // This method will be called once per scheduler run
-        updateSmartDashboard();
-    }
-
-    
 
     // @Override
     // public void simulationPeriodic() {
