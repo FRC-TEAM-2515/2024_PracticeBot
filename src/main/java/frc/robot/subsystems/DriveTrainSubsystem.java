@@ -89,7 +89,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
     }
 
     //custom function to reset encoder values
-    private void resetEncoders() {
+    public void resetEncoders() {
         m_talonSRX1.setSelectedSensorPosition(0);
         m_talonSRX3.setSelectedSensorPosition(0);
         m_gyro.reset();

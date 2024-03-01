@@ -25,6 +25,7 @@ public class DriveForwardCmd extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        m_driveTrainSubsystem.resetEncoders();
         encoderSetpoint = m_driveTrainSubsystem.getEncoderMeters() + m_distance;
     }
 

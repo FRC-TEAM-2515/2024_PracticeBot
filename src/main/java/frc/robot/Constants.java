@@ -19,7 +19,7 @@ public final class Constants {
   public static class DriveTrainConstants {
     public static final double kWheelDiameterInches = 6;
     public static final double kGearRatio = 8.45;
-    public static final int kUnitsPerRev = 2048; 
+    public static final int kUnitsPerRev = 4096; 
     public static final double kRampRate = 4.023;
   }
   public static class ArcadeDriveConstants {
