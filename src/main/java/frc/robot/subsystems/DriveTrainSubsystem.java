@@ -102,8 +102,8 @@ public class DriveTrainSubsystem extends SubsystemBase {
         double rightEncoder = Math.abs(m_talonSRX3.getSelectedSensorPosition());
         double averageEncoderPosition = (leftEncoder + rightEncoder) / 2;
         double converted = (Math.PI * Units.inchesToMeters(DriveTrainConstants.kWheelDiameterInches)) //circumference
-                         * (averageEncoderPosition / DriveTrainConstants.kUnitsPerRev)                //revolutions
-                         / DriveTrainConstants.kGearRatio;                                            //gear ratio
+                         * ((averageEncoderPosition / DriveTrainConstants.kUnitsPerRev)                //revolutions
+                         / DriveTrainConstants.kGearRatio);                                            //gear ratio
         return converted;
     }
 
@@ -126,8 +126,9 @@ public class DriveTrainSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Left Velocity", m_talonSRX1.getSelectedSensorVelocity());
         SmartDashboard.putNumber("Right Velocity", m_talonSRX3.getSelectedSensorVelocity());
         SmartDashboard.putNumber("Left Position", Math.abs(m_talonSRX1.getSelectedSensorPosition()));
-        SmartDashboard.putNumber("Right Position",Math.abs(m_talonSRX3.getSelectedSensorPosition()));
+        SmartDashboard.putNumber("Right Position", Math.abs(m_talonSRX3.getSelectedSensorPosition()));
         SmartDashboard.putNumber("Average Encoder Position (Meters)", getEncoderMeters());
+
     }
 
     // /**
