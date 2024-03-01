@@ -127,7 +127,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Right Velocity", m_talonSRX3.getSelectedSensorVelocity());
         SmartDashboard.putNumber("Left Position", Math.abs(m_talonSRX1.getSelectedSensorPosition()));
         SmartDashboard.putNumber("Right Position",Math.abs(m_talonSRX3.getSelectedSensorPosition()));
-        SmartDashboard.putNumber("Average Encoder Position", getEncoderMeters());
+        SmartDashboard.putNumber("Average Encoder Position (Meters)", getEncoderMeters());
     }
 
     // /**
